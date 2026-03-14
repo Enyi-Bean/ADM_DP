@@ -1,5 +1,6 @@
 <div align="center">
-<h1>ADM-DP: Adaptive Dynamic Modality Diffusion Policy through Vision-Tactile-Graph Fusion for Multi-Agent Manipulation</h1>
+<h1>ADM-DP</h1>
+<p><b>Adaptive Dynamic Modality Diffusion Policy through<br>Vision-Tactile-Graph Fusion for Multi-Agent Manipulation</b></p>
 </div>
 
 ## Overview
