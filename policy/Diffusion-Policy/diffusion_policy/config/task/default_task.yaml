@@ -1,0 +1,70 @@
+name: task_config
+
+image_shape: &image_shape [3, 240, 320]
+# image_shape: &image_shape [3, 256, 256]
+shape_meta: &shape_meta
+  # acceptable types: rgb, low_dim
+  obs:
+    head_cam:
+      shape: *image_shape
+      type: rgb
+    # front_cam:
+    #   shape: *image_shape
+    #   type: rgb
+    # left_cam:
+    #   shape: *image_shape
+    #   type: rgb
+    # right_cam:
+    #   shape: *image_shape
+    #   type: rgb
+    agent_pos:
+      # shape: [14]
+      shape: [8]
+      type: low_dim
+    # 新增TCP观测
+    tcp_agent0:
+      shape: [3]  # [x, y, z]
+      type: tcp
+    tcp_agent1:
+      shape: [3]
+      type: tcp
+    tcp_agent2:
+      shape: [3]
+      type: tcp
+    # 点云观测 (N_points个点, 每个点3维xyz)
+    point_cloud:
+      shape: [512, 3]  # 512个采样点
+      type: pointcloud
+    # 触觉观测 (当前agent的夹爪: 2 fingers x 4x4 FSR = 32)
+    tactile:
+      shape: [32]
+      type: tactile
+  action:
+    # shape: [14]
+    shape: [8]
+
+env_runner:
+  _target_: diffusion_policy.env_runner.pusht_image_runner.PushTImageRunner
+  n_train: 6
+  n_train_vis: 2
+  train_start_seed: 0
+  n_test: 50
+  n_test_vis: 4
+  legacy_test: True
+  test_start_seed: 100000
+  max_steps: 300
+  n_obs_steps: ${n_obs_steps}
+  n_action_steps: ${n_action_steps}
+  fps: 10
+  past_action: ${past_action_visible}
+  n_envs: null
+
+dataset:
+  _target_: diffusion_policy.dataset.robot_image_dataset.RobotImageDataset
+  zarr_path: data/useless.zarr
+  horizon: ${horizon}
+  pad_before: ${eval:'${n_obs_steps}-1'}
+  pad_after: ${eval:'${n_action_steps}-1'}
+  seed: 42
+  val_ratio: 0.02
+  max_train_episodes: 90

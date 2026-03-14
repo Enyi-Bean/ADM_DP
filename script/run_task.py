@@ -1,0 +1,34 @@
+import argparse
+import os
+
+def main():
+    parser = argparse.ArgumentParser(description="Run RoboFactory planner with task config input.")
+    parser.add_argument('config', type=str, help="Task config file to use")
+    args = parser.parse_args()
+    
+    #原版
+    command = (
+        f"python -m planner.run "
+        f"-c \"{args.config}\" " 
+        f"--render-mode=\"human\" "
+        f"-b=\"cpu\" "
+        f"-n 1 "
+        f"--vis"
+    )
+    
+    
+    # command = (
+    #     f"python -m planner.run "
+    #     f"-c \"{args.config}\" " 
+    #     #f"--render-mode=\"human\" "
+    #     f"--render-mode=\"rgb_array\" "
+    #     f"-b=\"cpu\" "
+    #     f"-n 1 "
+    #     #f"--vis "
+    #     f"--save-video"
+    # )
+
+    os.system(command)
+
+if __name__ == "__main__":
+    main()

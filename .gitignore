@@ -1,0 +1,37 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Data
+data/
+*.zarr/
+
+# Checkpoints
+*.ckpt
+*.pt
+*.pth
+
+# 3D assets
+*.glb
+*.obj
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+wandb/
+outputs/
+
+# Environment
+.env
